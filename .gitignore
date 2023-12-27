@@ -1,3 +1,7 @@
 /build/
 /node_modules/
 /public/
+package-lock.*
+package*
+.vscode
+.gitignore
