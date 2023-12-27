@@ -5,3 +5,4 @@ package-lock.*
 package*
 .vscode
 .gitignore
+.Ds_store
