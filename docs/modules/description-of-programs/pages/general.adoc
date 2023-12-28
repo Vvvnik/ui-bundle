@@ -1,0 +1,15 @@
+:toc-title: Содержание
+
+// include::contents.adoc[leveloffset=1]
+// include::list-of-abbreviations-and-designations.adoc[leveloffset=1]
+// include::general-information.adoc[leveloffset=1]
+// include::functional-purpose.adoc[leveloffset=1]
+// include::description-of-the-logical-structure.adoc[leveloffset=1]
+// include::technical-means-used.adoc[leveloffset=1]
+// include::call-and-download.adoc[leveloffset=1]
+// include::input-data.adoc[leveloffset=1]
+// include::output-data.adoc[leveloffset=1]
+
+
+
+

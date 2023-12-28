@@ -1,0 +1,11 @@
+= Руководство системного программиста = 
+
+:navtitle: Руководство системного программиста
+
+. xref:general-information-about-the-program.adoc[Общие сведения о программе]
+. xref:program-structure.adoc[Структура программы]
+. xref:program-settings.adoc[Настройка программы]
+. xref:program-verification.adoc[Проверка программы]
+. xref:additional-features.adoc[Дополнительные возможности]
+. xref:messages-to-the-system-programmer.adoc[Сообщения системному программисту]
+. xref:applications.adoc[Приложения]

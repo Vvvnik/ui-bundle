@@ -1,0 +1,8 @@
+= Руководство оператора =
+
+:navtitle: Руководство оператора
+
+. xref:purpose-of-the-program.adoc[Назначение программы]
+. xref:program-execution-conditions.adoc[Условия выполнения программы]
+. xref:program-execution.adoc[Выполнение программы]
+. xref:messages-to-the-operator.adoc[Сообщения оператору]

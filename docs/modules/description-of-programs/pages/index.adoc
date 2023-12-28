@@ -1,0 +1,14 @@
+= Описание программы =
+
+:navtitle: Описание программы
+
+xref:contents.adoc[Оглавление] +
+xref:list-of-abbreviations-and-designations.adoc[Перечень сокращений и обозначений] +
+
+. xref:general-information.adoc[Общая информация]
+. xref:functional-purpose.adoc[Функциональное назначение]
+. xref:description-of-the-logical-structure.adoc[Описание логической структуры]
+. xref:technical-means-used.adoc[Используемые технические средства]
+. xref:call-and-download.adoc[Вызов и загрузка]
+. xref:input-data.adoc[Входные данные]
+. xref:output-data.adoc[Выходные данные]

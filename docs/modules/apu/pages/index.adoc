@@ -1,0 +1,8 @@
+= Сервисы
+:navtitle: Сервисы
+
+* xref:closure-areas.adoc[Районы закрытия]
+* xref:solar-and-geomagnetic-activity.adoc[Солнечная и геомагнитная активность]
+* xref:download-log.adoc[Журнал загрузки из внешних источников]
+//* xref:apu-closure-areas/pages/closure-areas.adoc[Районы закрытия]
+//* xref:apu-solar-and-geomagnetic-activity/pages/solar-and-geomagnetic-activity.adoc[Солнечная и геомагнитная активность]

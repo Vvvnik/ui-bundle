@@ -1,0 +1,43 @@
+[options="header"]
+[%autowidth]
+|==========================================================================================================================================================
+| Наименование поля                        | Тип                 | Описание
+| facility_designator                      | text                | Обозначение объекта
+| feature_name                             | text                | Название объекта
+| notam_number                             | text                | Номер NOTAM
+| issue_date                               | timestamp with zone | Дата и время выдачи NOTAM
+| start_date                               | timestamp with zone | Дата и время начала действия NOTAM
+| end_date                                 | text                | Дата и время окончания действия NOTAM; вместо даты может быть альтернативный текст
+| source                                   | text                | Источник NOTAM
+| source_type                              | text                | Тип источника
+| icao_message                             | text                | Сообщение NOTAM в формате ICAO
+| traditional_message                      | text                | Традиционное сообщение NOTAM
+| plain_language_message                   | text                | Сообщение NOTAM в понятной форме
+| traditional_message_from4th_word         | text                | Традиционное сообщение NOTAM, начиная с четвертого слова
+| icao_id                                  | text                | Идентификатор ICAO
+| account_id                               | text                | Идентификатор аккаунта
+| airport_name                             | text                | Название аэропорта
+| procedure                                | boolean             | Указывает, является ли объект процедурой
+| user_id                                  | uuid                | Идентификатор пользователя
+| transaction_id                           | uuid                | Идентификатор транзакции
+| cancelled_or_expired                     | boolean             | Указывает, был ли NOTAM отменен или истек срок его действия
+| digital_tpp_link                         | boolean             | Указывает, является ли NOTAM цифровой ссылкой на TPP (Terminal Procedures Publication)
+| status                                   | text                | Статус NOTAM
+| contractions_expanded_for_plain_language | boolean             | Указывает, были ли сокращения развернуты для понятного сообщения
+| keyword                                  | text                | Ключевое слово NOTAM
+| snowtam                                  | boolean             | Указывает, является ли NOTAM SNOWTAM (сообщение о состоянии аэродрома в зимних условиях)
+| digitally_transformed                    | boolean             | Указывает, был ли NOTAM преобразован в цифровой формат
+| message_displayed                        | text                | Указывает, какое сообщение NOTAM отображается
+| has_history                              | boolean             | Указывает, есть ли у NOTAM история изменений
+| more_than300chars                        | boolean             | Указывает, превышает ли длина сообщения NOTAM 300 символов
+| showing_full_text                        | boolean             | Указывает, отображается ли полный текст сообщения NOTAM
+| loc_id                                   | uuid                | Идентификатор местоположения
+| default_icao                             | boolean             | Указывает, является ли ICAO идентификатором по умолчанию
+| crossover_transaction_id                 | uuid                | Идентификатор перекрестной транзакции
+| crossover_account_id                     | text                | Идентификатор перекрестного аккаунта
+| request_id                               | uuid                | Идентификатор запроса
+| map_pointer                              | text                | - (без описания)
+| geometry                                 | text                | - (без описания)
+| notices_download_result_id               | uuid                | Идентификатор сущности, описывающей загрузку извещений
+| ICAONotams                               | List<ICAONotamDto>  | Распарсенное поле IcaoMessage
+|==========================================================================================================================================================

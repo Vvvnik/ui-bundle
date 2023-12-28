@@ -1,0 +1,67 @@
+:customcss: CSS/css1.css
+:figure-caption!: 
+//Рисунок
+:table-caption: Таблица
+:toc-title: Содержание
+:imagesdir: ../images
+:toc:
+= Районы закрытия
+
+== Назначение
+
+Cервис предназначен для периодического сбора, хранения и
+предоставления информации о Районах закрытия.
+В качестве информации должны использоваться данные из внешних источников.
+Сбор информации осуществляется из источников NOTAM и NOTMAR.
+
+== Схема ПО
+Схема ПО представлена на <<id_image-1, Рисунке {counter:figure-number}>>.
+
+[[id_image-1]]
+.Рисунок {counter:figure-number}. Схема ПО
+image::images-closure-areas/sch-closure-areas.png[]
+
+== NOTAM
+Сервис использует POST-запроc url: searchType=&designatorsForLocation={Список ICAO}&searchType=0&flightPathResultsType=All NOTAMs.
+
+Параметры POST-запроса:
+
+* searchType: 0
+* flightPathResultsType: All NOTAMs
+* designatorsForLocation: {список ICAO через запятую}
+
+Список ICAO представлен в <<id_table-1>>.
+
+[[id_table-1, Таблице 1]]
+.Список ICAO
+include::tables-closure-areas/t-ICAO.adoc[]
+
+Атрибуты класса FNSNotamSearchParsedItemDt представлены в<<id_table-2>>.
+
+[[id_table-2, Таблице 2]]
+.Атрибуты класса FNSNotamSearchParsedItemDto
+include::tables-closure-areas/t-attributes.adoc[]
+
+Класс QQualifierDto (квалификатор Q) представлен в <<id_table-3>>.
+
+[[id_table-3, Таблице 3]]
+.Класс QQualifierDto (квалификатор Q)
+include::tables-closure-areas/t-QQualifierDto.adoc[]
+
+Класс ICAONotamDto представлен в <<id_table-4>>.
+
+[[id_table-4, Таблице 4]]
+.Класс ICAONotamDto
+include::tables-closure-areas/t-ICAONotamDto.adoc[]
+
+Класс ICAONOTAMSectionCDto представлен в <<id_table-5>>.
+
+[[id_table-5, Таблице 5]]
+.Класс ICAONOTAMSectionCDto
+include::tables-closure-areas/t-ICAONOTAMSectionCDto.adoc[]
+
+== NOTMAR
+За парсинг данных NOTMAR отвечает сервис FNSNotmarSearchResponseJsonParser. Его метод Parse принимает на вход загруженный json и с помощью библиотеки Newtonsoft.Json конвертирует json в список объектов C#.
+
+== API
+https://api-closure-areas.okn-m.anc.space/swagger/index.html

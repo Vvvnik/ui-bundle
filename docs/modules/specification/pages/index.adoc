@@ -1,0 +1,5 @@
+= Спецификация =
+
+:navtitle: Спецификация
+
+* xref:specification-table.adoc[Спецификация]

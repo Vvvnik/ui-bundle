@@ -1,0 +1,39 @@
+:toc:
+:toc-title: Оглавление
+:toclevels: 3
+= Оглавление
+
+xref:general-information.adoc[1. Общие сведения]
+
+1.1 Обозначение и наименование программы
+
+1.2 Программное обеспечение необходимое для функционирование программы 
+
+1.3 Языки программирования на которых написана программа 
+
+xref:functional-purpose.adoc[2. Функциональное назначение] 
+
+2.1 Назначение программы
+
+2.2 Решаемые задачи
+
+2.3 Сведения о функциональных органичениях на применение
+
+xref:description-of-the-logical-structure.adoc[3. Описание логической структуры]
+
+3.1 Алгоритм программы
+
+xref:technical-means-used.adoc[4. Используемые технические средства]
+
+xref:call-and-download.adoc[5. Вызов и загрузка]
+
+xref:input-data.adoc[6. Входные данные]
+
+xref:output-data.adoc[7. Выходные данные]
+
+//{{% children depth="3" showhidden="true" %}}
+
+//include::description-of-the-logical-structure.adoc[leveloffset=2] 
+
+
+

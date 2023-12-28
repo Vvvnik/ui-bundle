@@ -1,0 +1,409 @@
+:figure-caption!:
+// Рисунок
+:table-caption!:
+// Таблица
+:toc-title: Содержание
+:important-caption: Важно!
+:imagesdir: ../images
+:toc:
+
+= Солнечная и геомагнитная активность
+
+== Назначение
+
+Сервис предназначен для получения, хранения и предоставления информации по геомагнитной активности и солнечным пятнам. Данные загружаются из внешних источников.
+
+== Схема ПО
+
+Cхема ПО представлена на <<id_image-1, Рисунке {counter:figure-number}>>.
+
+[[id_image-1]]
+.Рисунок {counter:figure-number}. Схема ПО
+image::images-solar-and-geomagnetic-activity/image-solar-sch.png[]
+
+== Входные данные
+В качестве информации о параметрах геомагнитной активности используются данные из:
+
+1. Архивные данные с 1932 года до вчерашнего дня (сегодня-1), в сиcтеме именуются «GeomagneticCurrentData»-
+https://www-app3.gfz-potsdam.de/kp_index/Kp_ap_Ap_SN_F107_since_1932.txt. Пример скачанных данных приведен на <<id_image-2, Рисунке {counter:figure-number}>>.
+2. Прогнозные данные за последние 30 дней (по текущий день), в сиcтеме именуются «GeomagneticForecastData» –
+https://www-app3.gfz-potsdam.de/kp_index/Kp_ap_Ap_SN_F107_nowcast.txt. Пример скачанных данных приведен на <<id_image-3, Рисунке {counter:figure-number}>>.
+3. Трехчасовой прогноз(обновление каждые 3 часа) на текущий месяц, в сиcтеме именуются «GeomagneticThreeHourData» -
+https://services.swpc.noaa.gov/products/noaa-planetary-k-index-forecast.json. Пример скачанных данных приведен на <<id_image-4, Рисунке {counter:figure-number}>>.
+4. Прогнозные данные на 45 дней начиная с текущего дня, в сиcтеме именуются «Geomagnetic45DaysData» –
+https://services.swpc.noaa.gov/text/45-day-ap-forecast.txt. Пример скачанных данных приведен на <<id_image-5, Рисунке {counter:figure-number}>>.
+
+[[id_image-2]]
+.Рисунок {counter:figure-number}. Пример данных GeomagneticCurrentData
+image::images-solar-and-geomagnetic-activity/GeomagneticCurrentData.png[]
+
+[[id_image-3]]
+.Рисунок {counter:figure-number}. Пример данных GeomagneticForecastData
+image::images-solar-and-geomagnetic-activity/GeomagneticForecastData.png[]
+
+[[id_image-4]]
+.Рисунок {counter:figure-number}. Пример данных GeomagneticThreeHourData
+image::images-solar-and-geomagnetic-activity/GeomagneticThreeHourData.png[]
+
+[[id_image-5]]
+.Рисунок {counter:figure-number}. Пример данных Geomagnetic45DaysData
+image::images-solar-and-geomagnetic-activity/Geomagnetic45DaysData.png[]
+
+В качестве информации о параметрах солнечных пятен используются данные из:
+
+1. Архивные данные с 1818 года до последнего дня предыдущего месяца(текущий месяц не включается), в сиcтеме именуются «SunSpotsArchiveData» -
+https://www.sidc.be/SILSO/DATA/SN_d_tot_V2.0.txt. Пример скачанных данных приведен на <<id_image-6, Рисунке {counter:figure-number}>>. При парсинге будут использоваться столбцы 1,2,3 для определения date_ut и столбец 4 значение ISN.
+2. Данные за текущий месяц включая сегодняшний день, в сиcтеме именуются SunSpotsCurrentMonthData –
+https://www.sidc.be/SILSO/DATA/EISN/EISN_current.txt. Пример скачанных данных приведен на <<id_image-7, Рисунке {counter:figure-number}>>.
+3. Прогнозные данные начиная с прошлого года и на 19 лет вперед по месяцам, в сиcтеме именуются SunSpotsForecastData - 
+https://www.nasa.gov/sites/default/files/atoms/files/jun2023ssn_prd.txt. Пример скачанных данных приведен на <<id_image-8, Рисунке {counter:figure-number}>>.
+
+[[id_image-6]]
+.Рисунок {counter:figure-number}. Пример данных SunSpotsArchiveData
+image::images-solar-and-geomagnetic-activity/SunSpotsArchiveData.png[]
+
+[[id_image-7]]
+.Рисунок {counter:figure-number}. Пример данных SunSpotsCurrentMonthData
+image::images-solar-and-geomagnetic-activity/SunSpotsCurrentMonthData.png[]
+
+[[id_image-8]]
+.Рисунок {counter:figure-number}. Пример данных SunSpotsForecastData
+image::images-solar-and-geomagnetic-activity/SunSpotsForecastData.png[]
+
+=== Сохранение исходных данных
+После скачивания, данные сохраняются в соответствующих таблицах БД.
+
+Данные по геомагнитной активности сохраняются в соответствующие таблицы:
+
+1. «GeomagneticCurrentData» в таблицу - «geomagnetic_current_data_downloads».
+2. «GeomagneticForecastData» в таблицу - «geomagnetic_forecast_data_downloads».
+3. «GeomagneticThreeHourData» в таблицу - «geomagnetic_three_hour_data_downloads».
+4. «Geomagnetic45DaysData» в таблицу - «geomagnetic45days_data_downloads».
+
+Все таблицы имеют одинаковую структуру.
+Описание полей таблиц с данными по геомагнитной активности приведено в <<id_table-1, Таблице {counter:table-number}>>.
+
+[[id_table-1]]
+.Таблица {counter:table-number}. Описание полей таблиц с данными по геомагнитной активности:
+include::tables-solar-and-geomagnetic-activity/geomagnetic_downloads.adoc[]
+
+Данные по солнечным пятнам сохраняются в соответствующие таблицы:
+
+1. «SunSpotsArchiveData» в таблицу - «sun_spots_archive_data_downloads». 
+2. «SunSpotsCurrentMonthData» в таблицу - «sun_spots_current_month_data_downloads». 
+3. «SunSpotsForecastData» в таблицу - «sun_spots_forecast_data_downloads». 
+
+Все таблицы имеют одинаковую структуру. Описание полей таблиц с данными по солнечным пятнам приведено в <<id_table-2, Таблице {counter:table-number}>>.
+
+[[id_table-2]]
+.Таблица {counter:table-number}. Описание полей таблиц с данными по солнечным пятнам:
+include::tables-solar-and-geomagnetic-activity/sun_spots_download.adoc[]
+
+== Парсинг данных
+=== Парсинг данных по геомагнитной активности
+
+По завершению скачивания каждого источника запускается процесс парсинга. Результат парсинга сохраняется в соответствующие таблицы:
+
+1. «GeomagneticCurrentData» в таблицу - «geomagnetic_current_data_parsed_items».
+2. «GeomagneticForecastData» в таблицу - «geomagnetic_forecast_data_parsed_items». 
+3. «GeomagneticThreeHourData» в таблицу - «geomagnetic_three_hour_data_parsed_items». 
+4. «Geomagnetic45DaysData» в таблицу - «geomagnetic45days_data_parsed_items». 
+
+Структура таблиц с результатом парсинга у всех источников одинаковая за исключением поля с «id» таблицы скачивания «<название_источника>_download_id», например «geomagnetic45days_data_download_id»
+
+Структура таблиц с результатом парсинга данных по геомагнитной активности приведена в <<id_table-3, Таблице {counter:table-number}>>.
+
+[[id_table-3]]
+.Таблица {counter:table-number}. Описание полей таблиц с результатом парсинга данных по геомагнитной активности
+include::tables-solar-and-geomagnetic-activity/geomagnetic_parsed_items.adoc[]
+
+==== Расчет неизвестных показателей:
+За расчет, недостающих в источниках показателях, отвечает сервис «GeomagneticIndicatorsCalculator».
+В источнике «GeomagneticThreeHourData» (трехчасовые прогнозные данные) - https://services.swpc.noaa.gov/products/noaa-planetary-k-index-forecast.json
+получаем только один показатель, это значение «Kp»- данное значение копируется на все показатели «Kp», начиная с «Kp1» и до «Kp8», поскольку значения «Ap» в этом источнике нет, рассчитываем его относительно значения «Kp» по следующему алгоритму:
+----
+0 => 0,
+0.33 => 2,
+0.67 => 3,
+1 => 4,
+1.33 => 5,
+1.67 => 6,
+2 => 7,
+2.33 => 9,
+2.67 => 12,
+3 => 15,
+3.33 => 18,
+3.67 => 22,
+4 => 27,
+4.33 => 32,
+4.67 => 39,
+5 => 48,
+5.33 => 56,
+5.67 => 67,
+6 => 80,
+6.33 => 94,
+6.67 => 111,
+7 => 132,
+7.33 => 154,
+7.67 => 179,
+8 => 207,
+8.33 => 236,
+8.67 => 300,
+9 => 400,
+_ => -1//При любом другом значении возвращаем -1
+----
+Т.е.  при значении «Kp» = 8.67 получим значение «Ap» = 300, которое также дублируем на все показатели Ap начиная с  «Ap1» и заканчивая «Ap8».
+Также для данного источника рассчитываем среднее значение «Ap» (показатель «AP_AVG») и значения «Cp» и «C9». Расчет показателя «AP_AVG» и значений «Cp» и «C9» приведены ниже.
+
+В источнике «Geomagnetic45DaysData» (прогнозные данные на 45 дней)–
+https://services.swpc.noaa.gov/text/45-day-ap-forecast.txt
+наоборот, возвращается только показатель «Ap» в сравнении с 3х часовым прогнозом. Данное значение «Ap» также дублируем на показатели «Ap1» по «Ap8» а также на «AP_AVG» поскольку при одинаковых показателях он будет такой же.
+
+Значение «Kp» получаем относительно значения «Ap» по алгоритму:
+----
+>= 0 and < 2 => 0,
+>= 2 and < 3 => 0.33,
+>= 3 and < 4 => 0.67,
+>= 4 and < 5 => 1,
+>= 5 and < 6 => 1.33,
+>= 6 and < 7 => 1.67,
+>= 7 and < 9 => 2,
+>= 9 and < 12 => 2.33,
+>= 12 and < 15 => 2.67,
+>= 15 and < 18 => 3,
+>= 18 and < 22 => 3.33,
+>= 22 and < 27 => 3.67,
+>= 27 and < 32 => 4,
+>= 32 and < 39 => 4.33,
+>= 39 and < 48 => 4.67,
+>= 48 and < 56 => 5,
+>= 56 and < 67 => 5.33,
+>= 67 and < 80 => 5.67,
+>= 80 and < 94 => 6,
+>= 94 and < 111 => 6.33,
+>= 111 and < 132 => 6.67,
+>= 132 and < 154 => 7,
+>= 154 and < 179 => 7.33,
+>= 179 and < 207 => 7.67,
+>= 207 and < 236 => 8,
+>= 236 and < 300 => 8.33,
+>= 300 and < 400 => 8.67,
+>= 400 => 9,
+_ => -1//При любом другом значении возвращаем -1
+----
+Т.е. если значение «Ap»=300, то получаем значение «Kp» = 8.67
+Полученное значение «Kp» также дублируем на все показатели начиная с «Kp1» по «Kp8».
+Для данного источника также рассчитываем значения «Cp» и «C9».
+
+Значение «Cp» рассчитывается относительно значения суммы показателей «Ap»
+----
+>= 0 and <= 22 => 0,
+>= 23 and <= 34 => 0.1,
+>= 35 and <= 44 => 0.2,
+>= 45 and <= 55 => 0.3,
+>= 56 and <= 66 => 0.4,
+>= 67 and <= 78 => 0.5,
+>= 79 and <= 90 => 0.6,
+>= 91 and <= 104 => 0.7,
+>= 105 and <= 120 => 0.8,
+>= 121 and <= 139 => 0.9,
+>= 140 and <= 164 => 1.0,
+>= 165 and <= 190 => 1.1,
+>= 191 and <= 228 => 1.2,
+>= 229 and <= 273 => 1.3,
+>= 274 and <= 320 => 1.4,
+>= 321 and <= 379 => 1.5,
+>= 380 and <= 453 => 1.6,
+>= 454 and <= 561 => 1.7,
+>= 562 and <= 729 => 1.8,
+>= 730 and <= 1119 => 1.9,
+>= 1120 and <= 1399 => 2.0,
+>= 1400 and <= 1699 => 2.1,
+>= 1700 and <= 1999 => 2.2,
+>= 2000 and <= 2399 => 2.3,
+>= 2400 and <= 3199 => 2.4,
+>= 3200 => 2.5,
+_ => -1 //При любом другом значении присваиваем -1
+----            
+Т.е. если сумма всех показателей «Ap» = 36, то значение «Cp» = 0.2
+
+Значение «C9» рассчитывается относительно значения «Cp»
+----
+>= 0.0 and <= 0.1 => 0,
+>= 0.2 and <= 0.3 => 1,
+>= 0.4 and <= 0.5 => 2,
+>= 0.6 and <= 0.7 => 3,
+>= 0.8 and <= 0.9 => 4,
+>= 1.0 and <= 1.1 => 5,
+>= 1.2 and <= 1.4 => 6,
+>= 1.5 and <= 1.8 => 7,
+== 1.9 => 8,
+>= 2.0 and <= 2.5 => 9,
+_ => -1 //При любом другом значении присваиваем -1
+----
+Т.е. если значение «Cp» = 0.2 то значение  «C9» получаем = 1
+
+=== Парсинг данных по солнечным пятнам
+
+По завершению скачивания каждого источника запускается процесс парсинга. 
+Результат парсинга сохраняется в соответствующие таблицы:
+
+1. «SunSpotsArchiveData» в таблицу - «sun_spots_archive_parsed_items»
+2. «SunSpotsCurrentMonthData» в таблицу - «sun_spots_current_month_parsed_items»
+3. «SunSpotsForecastData» в таблицу - «sun_spots_forecast_parsed_items»
+
+Структура таблиц с результатом парсинга у всех источников одинаковая за исключением поля с «id» таблицы скачивания «<название_источника>_download_id», например «sun_spots_archive_data_download_id»
+
+Структура таблиц с результатом парсинга данных по солнечным пятным приведена в <<id_table-4, Таблице {counter:table-number}>>.
+
+[[id_table-4]]
+.Таблица {counter:table-number}. Описание полей таблиц с результатом парсинга данных по солнечным пятным
+include::tables-solar-and-geomagnetic-activity/sun_spots_parsed_items.adoc[]
+
+== Объединение данных в общий массив
+=== Объединение данных по геомагнитной активности в общий массив
+
+По завершению парсинга запускается отдельный фоновый сервис, работающий по расписанию, который объединяет крайние по дате парсинга данные в общий массив.
+
+1. Из таблицы «geomagneticCurrentDataParsedItems» берем все данные до вчерашнего дня включительно, т.е. «Where DateUT < DateTime.Now.Date»
+2. Из таблицы «geomagneticForecastDataParsedItems» берем данные на текущий день, т.е. «Where DateUT == DateTime.Now.Date»
+3. Из таблицы «geomagneticThreeHourDataParsedItems» берем данные на текущий день и на 2 дня вперед, т.е. «Where DateUT >= DateTime.Now.Date and DateUT <= DateTime.Now.Date.AddDays(2)»
+4. Из таблицы «geomagnetic45DaysDataParsedItems» берем данные начиная с Сегодня + 2 и до последнего значения, т.е. «WhereDateUT > DateTime.Now.Date.AddDays(2)»
+
+//*******************
+IMPORTANT: На текущей день данные нужны чтобы перенести значения «Kp» и «Ap» из «geomagneticThreeHourDataParsedItems» за текущий день в «geomagneticCurrentDataParsedItems», так как там некоторые показатели могут быть не заполнены(записи со значением = «-1»)
+
+//*******************
+В результате объединения, данные сохраняются в таблицу «summary_array_geomagnetic_datas», таблица которой во много схожа с таблицами результата парсинга, за исключением поля kp_sum и отсутствия идентификатора на таблицу с результатом скачивания. Описание полей таблицы «summary_array_geomagnetic_datas» приведено в <<id_table-5, Таблице {counter:table-number}>>.
+
+[[id_table-5]]
+.Таблица {counter:table-number}. Описание полей таблицы «summary_array_geomagnetic_datas»
+include::tables-solar-and-geomagnetic-activity/summary_array_geomagnetic_datas.adoc[]
+
+=== Объединение данных по солнечным пятнам в общий массив 
+
+По завершению парсинга запускается отдельный фоновый сервис, работающий по расписанию, который объединяет крайние по дате парсинга данные в общий массив.
+
+1. Из таблицы sun_spots_archive_parsed_items берем все данные до предыдущего месяца включительно, т.е. «Where DateUT < firstDayOfCurrentMonthUTC» где «firstDayOfCurrentMonthUTC» это первый день текущего месяца в формате UTC.
+2. Из таблицы «sun_spots_current_month_parsed_items» берем данные за текущий месяц, т.е. «Where DateUT.Month == utcNow.Month and DateUT.Year == utcNow.Year» где utcNow текущая дата и время на момент объединения. На самом деле в данной таблице других данных и не должно быть, но на всякий случаем делаем фильтрацию.
+3. Из таблицы «sun_spots_forecast_parsed_items» берем все данные начиная со следующего месяца за текущим, т.е. «WhereDateUT > lastDayOfCurrentMonthUTC» где «lastDayOfCurrentMonthUTC» это последний день текущего месяца в формате UTC.
+
+В результате объединения, данные сохраняются в таблицу «summary_array_sun_spots_datas», которая во многом схожа с таблицами результата парсинга, за исключением отсутствия идентификатора на таблицу с результатом скачивания. Описание полей таблицы «summary_array_sun_spots_datas» приведено в <<id_table-6, Таблице {counter:table-number}>>.
+
+[[id_table-6]]
+.Таблица {counter:table-number}. Описание полей таблицы «summary_array_sun_spots_datas»
+include::tables-solar-and-geomagnetic-activity/summary_array_sun_spots_datas.adoc[]
+
+== Выходные данные
+
+Данные по геомагнитной активности и солнечным пятнам выдаются одним общим контракт-объектом «SummaryArraySolarAndGeomagneticDataContract», который является объединением данных из таблиц геомагнитной активности «summary_array_geomagnetic_datas» и таблицы солнечных пятен «summary_array_sun_spots_datas», и выдачи их в эндпоинте «GetSolarAndGeomagneticData». Данный объект не хранится в БД, а служит промежуточным звеном между БД и получателем.
+
+За объединение данных отвечает сервис «SolarAndGeomagneticGraphService» и его публичный метод «Search», который возвращает результат объединения.
+
+
+=== Алгоритм объединения:
+Сначала выбираются все данные по Геомагнитной активности и к ним добавляются данные по солнечным пятнам у которых совпадает дата показателя, поле DateUT(операция «Left Join»). Если за определенную дату есть только Геомагнитные данные, но нет Солнечных- показатели по Солнечным пятнам заполняются значением = -1, т.е. по аналогии с источниками откуда данные были выгружены. В сервисе «SolarAndGeomagneticGraphService» за это отвечает приватный метод «LeftJoinGeomagneticAndSunSpots». 
+
+Далее к этому массиву добавляются данные по Солнечным пятнам которые не добавились при объединении в п.1 (операция «Right Join» с условием отсутствия пересечений с данными по Геомагнитной активности, чтобы не было пересечений). При этом данные по Геомагнитной активности заполняются значением = -1.
+Таким образом, данные по Геомагнитной активности и Солнечным пятнам, выдаются за указанный пользователем период. 
+
+//*******************
+IMPORTANT: Возвращение данных на определенный момент времени: по умолчанию, сервис возвращает последние актуальные данные, но в нем также заложена возможность возвращения данных, актуальных на определенный момент времени. Поскольку по завершению парсинга данных данные записываются в общий массив с определенной «create_date» у нас есть историчность изменения данных в этих таблицах.
+
+//*****************************************
+Таким образом для получения данных на определенный момент времени достаточно сделать фильтрацию – вернуть данные с максимальной датой, которые меньше даты и времени «TargetDateTime», где «TargetDateTime» это дата и время на момент которых пользователь хочет получить актуальные данные.
+В системе это реализовано следующим образом:
+
+* Отсекаются данные, загруженные после даты «TargetDateTime», которую запросил пользователь:
++
+summaryArrayGeomagneticDatas = summaryArrayGeomagneticDatas.Where (s => s.CreateDate <searchDto.TargetDateTime);
+* Используются последние актуальные данные:
++
+summaryArrayGeomagneticDatas = summaryArrayGeomagneticDatas.Where(item => item.CreateDate == summaryArrayGeomagneticDatas.Max(maxItem => maxItem.CreateDate)).ToList();
+
+=== Описание контракта
+_public record SummaryArraySolarAndGeomagneticDataContract_
+----
+DateTimeOffset DateUT,
+int BSR,
+int ND,
+float Kp1,
+float Kp2,
+float Kp3,
+float Kp4,
+float Kp5,
+float Kp6,
+float Kp7,
+float Kp8,
+float KpSum,
+int Ap1,
+int Ap2,
+int Ap3,
+int Ap4,
+int Ap5,
+int Ap6,
+int Ap7,
+int Ap8,
+int ApAvg,
+float Cp,
+int C9,
+ float ISN
+
+/// <summary>
+
+/// Контракт описывающий солнечные и геомагнитные данные
+
+/// </summary>
+
+/// <param name="DateUT">Дата сбора показаний</param>
+
+/// <param name="BSR">Число вращений солнца по Бартельсу</param>
+
+/// <param name="ND">Номер суток внутри 27-суточного цикла Бартельса (01-27)</param>
+
+/// <param name="Kp1">Значение планетарного 3-часового индекса (Kp) для интервала 0000-0300 UT</param>
+
+/// <param name="Kp2">Значение планетарного 3-часового индекса (Kp) для интервала 0300-0600 UT</param>
+
+/// <param name="Kp3">Значение планетарного 3-часового индекса (Kp) для интервала 0600-0900 UT</param>
+
+/// <param name="Kp4">Значение планетарного 3-часового индекса (Kp) для интервала 0900-1200 UT</param>
+
+/// <param name="Kp5">Значение планетарного 3-часового индекса (Kp) для интервала 1200-1500 UT</param>
+
+/// <param name="Kp6">Значение планетарного 3-часового индекса (Kp) для интервала 1500-1800 UT</param>
+
+/// <param name="Kp7">Значение планетарного 3-часового индекса (Kp) для интервала 1800-2100 UT</param>
+
+/// <param name="Kp8">Значение планетарного 3-часового индекса (Kp) для интервала 2100-0000 UT</param>
+
+/// <param name="Ap1">Планетарная амплитуда в трехчасовом интервале 0000-0300 UT</param>
+
+/// <param name="Ap2">Планетарная амплитуда в трехчасовом интервале 0300-0600 UT</param>
+
+/// <param name="Ap3">Планетарная амплитуда в трехчасовом интервале 0600-0900 UT</param>
+
+/// <param name="Ap4">Планетарная амплитуда в трехчасовом интервале 0900-1200 UT</param>
+
+/// <param name="Ap5">Планетарная амплитуда в трехчасовом интервале 1200-1500 UT</param>
+
+/// <param name="Ap6">Планетарная амплитуда в трехчасовом интервале 1500-1800 UT</param>
+
+/// <param name="Ap7">Планетарная амплитуда в трехчасовом интервале 1800-2100 UT</param>
+
+/// <param name="Ap8">Планетарная амплитуда в трехчасовом интервале 2100-0000 UT</param>
+
+/// <param name="KpSum">Сумма значений всех Kp</param>
+
+/// <param name="ApAvg">Среднесуточная амплитуда</param>
+
+/// <param name="Cp">Оценка общего уровня магнитной активности за сутки (диапазон изменения Ср от 0.0 до 2.5)</param>
+
+/// <param name="C9">Оценка общего уровня магнитной активности за сутки (нормировка от 0 до 9)</param>
+
+/// <param name="ISN">Расчетное количество солнечных пятен</param>
+----
+== API
+https://api-sun-active.okn-m.anc.space/swagger/index.html 
+
+
