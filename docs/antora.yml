@@ -4,9 +4,3 @@ start_page: doc-anc::index.adoc
 version: 1.0
 nav:
   - modules/ROOT/nav.adoc
-  - modules/description-of-programs/nav.adoc
-  - modules/program-texts/nav.adoc
-  - modules/specification/nav.adoc
-  - modules/operators-manual/nav.adoc
-  - modules/system-programmers-manual/nav.adoc
-  - modules/apu/nav.adoc

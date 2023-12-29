@@ -1,6 +1,0 @@
-= Текст программы =
-
-:navtitle: Текст программы
-
-. xref:annotation.adoc[Аннотация]
-. xref:general.adoc[Основная часть]
